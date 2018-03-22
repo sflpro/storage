@@ -1,0 +1,29 @@
+{
+  "name": "storage",
+  "version": "0.1.0",
+  "description": "Service for storing files with REST-like api",
+  "main": "boot/index.js",
+  "scripts": {
+    "start": "node boot",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sflpro/storage.git"
+  },
+  "keywords": [
+    "storage",
+    "rest"
+  ],
+  "author": "Gagik Arustamyan <gagik.arustamyan@sflpro.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sflpro/storage/issues"
+  },
+  "homepage": "https://github.com/sflpro/storage#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-pino-logger": "^3.0.1",
+    "pino": "^4.15.0"
+  }
+}
