@@ -8,7 +8,7 @@ const pinoExpress = require('express-pino-logger')({ logger });
 const db = require('../db');
 const app = require('../app');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 4000;
 
 /**
  * Creating a raw HTTP server instead of using express.listen
@@ -26,13 +26,13 @@ app.use(pinoExpress);
 /**
  * Wait for database to be ready to safely start listening for connections.
  */
-logger.info(`Waiting for database to be ready.`);
+/*logger.info(`Waiting for database to be ready.`);
 db.connected()
     .then(() => {
         logger.info(`Database is ready.`);
         server.listen(PORT);
     });
-
+*/
 /**
  * Event listener for HTTP server "error" event.
  */
