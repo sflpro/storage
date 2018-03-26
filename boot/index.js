@@ -26,13 +26,13 @@ app.use(pinoExpress);
 /**
  * Wait for database to be ready to safely start listening for connections.
  */
-/*logger.info(`Waiting for database to be ready.`);
+logger.info(`Waiting for database to be ready.`);
 db.connected()
     .then(() => {
         logger.info(`Database is ready.`);
         server.listen(PORT);
     });
-*/
+
 /**
  * Event listener for HTTP server "error" event.
  */
