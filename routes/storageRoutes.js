@@ -34,8 +34,7 @@ router.post('/', async (req, res, next) => {
     StorageController.saveFile(file, success => {
         res.send({ success: true })
     }, err => {
-        res.send({ error: err.message })
-    })
+        res.send(JSON.stringify({ error: err.message }))});
     //res.send('File is successfully stored!');
 
 });

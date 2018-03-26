@@ -8,7 +8,7 @@ const pinoExpress = require('express-pino-logger')({ logger });
 const db = require('../db');
 const app = require('../app');
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 
 /**
  * Creating a raw HTTP server instead of using express.listen
