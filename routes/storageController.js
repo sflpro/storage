@@ -4,7 +4,7 @@ const mv = require('mv');
 const mkdirp = require('mkdirp');
 const shortid = require('shortid');
 const mongoose = require('mongoose');
-const UPLOAD_DIR = (global.SOURCE_DIR || '../') + '/store/';
+const UPLOAD_DIR = process.env.SOURCE_DIR || '../store/';
 
 class StorageController {
 
