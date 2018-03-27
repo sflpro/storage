@@ -2,53 +2,42 @@
  * The file contains REST endpoints for managing files
  */
 let express = require('express');
-let multiparty = require('connect-multiparty');
 let StorageController = require('./storageController');
+const multiparty = require('connect-multiparty');
 //Upload = require('../model');
 
-const router = express.Router();
+module.exports = express.Router()
+    .use(multiparty())
+    .get('/*', async (req, res, next) => {
 
-router.use(multiparty);
+        const path = req.originalUrl;
 
-/**
- * This handler is responsible for storing the uploaded files in FS and DB
- */
-router.get('/:dir/:fileName', async (req, res, next) => {
+        function handleUpload(pathToFile, err) {
+            if (err) throw err;
+            res.sendFile(pathToFile);
+        }
 
-    const { dir, fileName } = req.params;
+        StorageController.getFile(path, handleUpload);
 
-    function handleUpload(err, upload) {
-        if (err) throw err;
-        res.end(JSON.stringify(upload));
-    }
+    })
+    .post('/', async (req, res, next) => {
+        const { files, headers: { host } } = req;
 
-    StorageController.getFile(dir, fileName, handleUpload)
-    //res.send(`Here is the file stored under "${req.params.path}"!`);
+        if (files && files.file) {
+            StorageController.saveFile(files.file, host, result => {
+                res.send({ success: true, id: result.id })
+            }, err => {
+                res.send(JSON.stringify({ error: err.message }))
+            });
+        } else {
+            res.send(JSON.stringify({ error: "File is not provided" }))
+        }
 
-});
-
-router.post('/', async (req, res, next) => {
-
-    // const { files: { file } } = { req };
-
-    StorageController.saveFile(file, success => {
-        res.send({ success: true })
-    }, err => {
-        res.send(JSON.stringify({ error: err.message }))});
-    //res.send('File is successfully stored!');
-
-});
-
-
-router.delete(':path/:fileName', function (req, res) {
-    /*const id = req.params.id;
-
-    function handleUploadRemove(err) {
-        if (err) throw err;
-        res.end();
-    }
-
-    Upload.findByIdAndRemove(id, handleUploadRemove);*/
-});
-
-module.exports = router;
+    })
+    .delete('/*', function (req, res) {
+        const path = req.originalUrl;
+        StorageController.deleteFile(path, (err) => {
+            //if (err) throw err;
+            res.end();
+        });
+    });
