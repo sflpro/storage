@@ -4,7 +4,7 @@ const mv = require('mv');
 const mkdirp = require('mkdirp');
 const shortid = require('shortid');
 const mongoose = require('mongoose');
-const UPLOAD_DIR = process.env.SOURCE_DIR || '../store/';
+const UPLOAD_DIR = process.env.SOURCE_DIR || './store/';
 
 class StorageController {
 
@@ -31,7 +31,7 @@ class StorageController {
             mv(path.normalize(file.path), path.join(uploadPath, fileName), function (err) {
 
                 if (err) error(err);
-                const apiPath = `${host}/${year}/${month}/${fileName}`;
+                const apiPath = `/${year}/${month}/${fileName}`;
                 success({ id: apiPath });
 
                 // DB save goes here

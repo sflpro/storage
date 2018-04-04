@@ -8,19 +8,19 @@ const multiparty = require('connect-multiparty');
 
 module.exports = express.Router()
     .use(multiparty())
-    .get('/*', async (req, res, next) => {
+    .get('/storage/*', async (req, res, next) => {
 
         const path = req.originalUrl;
-
+	const innerPath = path.replace("/storage",'');
         function handleUpload(pathToFile, err) {
             if (err) throw err;
             res.sendFile(pathToFile);
         }
 
-        StorageController.getFile(path, handleUpload);
+        StorageController.getFile(innerPath, handleUpload);
 
     })
-    .post('/', async (req, res, next) => {
+    .post('/storage/', async (req, res, next) => {
         const { files, headers: { host } } = req;
 
         if (files && files.file) {
@@ -34,7 +34,7 @@ module.exports = express.Router()
         }
 
     })
-    .delete('/*', function (req, res) {
+    .delete('/storage/*', function (req, res) {
         const path = req.originalUrl;
         StorageController.deleteFile(path, (err) => {
             //if (err) throw err;
