@@ -8,8 +8,8 @@ services:
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t storage .
-  - docker tag storage $DOCKER_USERNAME/storage:latest
-  - docker push $DOCKER_USERNAME/storage:latest
+  - docker tag storage sflpro/storage:latest
+  - docker push sflpro/storage:latest
 
 script:
   - exit 0
