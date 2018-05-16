@@ -9,7 +9,7 @@ before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t storage .
   - docker tag storage $DOCKER_USERNAME/storage:latest
-  - docker push $DOCKER_USERNAME/storage:lateste
+  - docker push $DOCKER_USERNAME/storage:latest
 
 script:
   - exit 0
